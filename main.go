@@ -9,6 +9,8 @@ import (
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
 
+	// for embedding static resources
+
 	_ "image/png" // for loading PNG images
 )
 
@@ -34,12 +36,12 @@ func main() {
 	///////////////////////////////////////////////////////////////////////////
 
 	// Create the banner image and resize it to fit the window width.
-	bannerImage := canvas.NewImageFromFile("banner.png")
+	bannerImage := canvas.NewImageFromResource(resourceBannerPng)
 	bannerImage.FillMode = canvas.ImageFillContain
 	bannerImage.SetMinSize(bannerSize)
 
 	// Create a showcase image and set its height to 300 pixels.
-	showcaseImage := canvas.NewImageFromFile("showcase.png")
+	showcaseImage := canvas.NewImageFromResource(resourceShowcasePng)
 	showcaseImage.FillMode = canvas.ImageFillContain
 	showcaseImage.SetMinSize(showcaseSize)
 
