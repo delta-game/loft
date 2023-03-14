@@ -1,0 +1,8 @@
+Website = "https://delta-game.github.io"
+
+[Details]
+Icon = "Icon.png"
+Name = "LOFT"
+ID = "delta-game.loft"
+Version = "0.0.1"
+Build = 1
