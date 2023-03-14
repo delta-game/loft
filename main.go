@@ -91,10 +91,10 @@ func main() {
 	/// The Sidebar UI.
 	///////////////////////////////////////////////////////////////////////////
 
-	VersLabel := widget.NewLabelWithStyle("VERSION MANAGER", fyne.TextAlignCenter, fyne.TextStyle{Bold: true, Italic: false, Monospace: false})
+	VersLabel := widget.NewLabelWithStyle("VERSION MANAGER", fyne.TextAlignCenter, fyne.TextStyle{Bold: true})
 
 	// Create the label for the commit header.
-	CommitLabel := widget.NewLabel("Commits")
+	CommitLabel := widget.NewLabelWithStyle("Commits", fyne.TextAlignCenter, fyne.TextStyle{Bold: true})
 
 	// Create the buttons for the commit list.
 	CommitBtnRefresh := widget.NewButton("Refresh", func() {})
@@ -135,7 +135,7 @@ func main() {
 	InstArrows := container.NewHBox(InstBtnUp, InstBtnDown)
 
 	// Create the header for the instances list.
-	InstsLabel := widget.NewLabel("Instances")
+	InstsLabel := widget.NewLabelWithStyle("Instances", fyne.TextAlignCenter, fyne.TextStyle{Bold: true})
 
 	// Create the button for the instances list.
 	InstBtnCopy := widget.NewButton("Copy", func() {})
