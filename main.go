@@ -50,12 +50,16 @@ func main() {
 	setPage := container.NewVBox(widget.NewLabel("WIP: This is where settings will be."))
 
 	// Create the tab bar and add the pages.
+	// TODO: We want to figure out how to actually
+	// center this. Maybe both it and the bannerImage.
 	tabBar := container.NewAppTabs(
 		container.NewTabItem("Home", homePage),
 		container.NewTabItem("News", newsPage),
 		container.NewTabItem("Refs", refsPage),
 		container.NewTabItem("Set", setPage),
 	)
+
+	// container.NewCenter(tabBar) ?
 
 	// Combine the image container and tab bar in a vertical box layout.
 	top := container.NewVBox(bannerImage, tabBar)
