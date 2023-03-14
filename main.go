@@ -90,8 +90,11 @@ func main() {
 			item.(*widget.Label).SetText(fmt.Sprintf("Commit Hash %d", i))
 		},
 	)
+
 	// For Commits, combine the header with the list.
 	Commits := container.NewVBox(CommitHead, CommitList)
+	CommitsContainer := container.NewVScroll(Commits)
+	CommitsContainer.SetMinSize(fyne.NewSize(0, 200))
 
 	// Create the header for the instances list.
 	InstsLabel := widget.NewLabel("Instances")
@@ -119,6 +122,8 @@ func main() {
 	)
 	// For Instances, combine the header with the list.
 	Insts := container.NewVBox(InstsHead, InstsList)
+	InstsContainer := container.NewVScroll(Insts)
+	InstsContainer.SetMinSize(fyne.NewSize(0, 400))
 
 	// Create a separator for the commits and the insts.
 	separator := widget.NewSeparator()
@@ -130,9 +135,9 @@ func main() {
 	// Create a sidebar with the logo and some sample content.
 	sidebar := container.NewVBox(
 		VersLabel,
-		Commits,
+		CommitsContainer,
 		separator,
-		Insts,
+		InstsContainer,
 		widget.NewButton("LAUNCH", func() {}),
 	)
 
