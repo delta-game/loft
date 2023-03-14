@@ -97,15 +97,21 @@ func main() {
 	CommitLabel := widget.NewLabel("Commits")
 
 	// Create the buttons for the commit list.
-	CommitBtnDown := widget.NewButton("Down", func() {})
+	CommitBtnRefresh := widget.NewButton("Refresh", func() {})
+	CommitBtnGrab := widget.NewButton("Grab", func() {})
 	CommitBtnInfo := widget.NewButton("Info", func() {})
-	CommitBtnDel := widget.NewButton("Del", func() {})
+
+	// Create the dropdown box for the commit filter.
+	CommitFilter := widget.NewSelect([]string{"All Vers", "Upstream", "Stable"}, func(selected string) {
+		fmt.Println("Selected commit filter:", selected)
+	})
+	CommitFilter.SetSelected("All")
 
 	// Combine the buttons in a horizontal box layout.
-	CommitButts := container.NewHBox(CommitBtnDown, CommitBtnDel, CommitBtnInfo)
+	CommitButts := container.NewHBox(CommitBtnGrab, CommitBtnInfo)
 
 	// For Commits, combine the label and buttons into a 'header'.
-	CommitHead := container.NewHBox(CommitLabel, CommitButts)
+	CommitHead := container.NewHBox(CommitBtnRefresh, CommitLabel, CommitButts, CommitFilter)
 
 	// Make a list of all available commits for gh: delta-game/delta.
 	// TODO: Need to figure out how to actually extend the list.
@@ -121,7 +127,12 @@ func main() {
 	// For Commits, combine the header with the list.
 	Commits := container.NewVBox(CommitHead, CommitList)
 	CommitsContainer := container.NewVScroll(Commits)
-	CommitsContainer.SetMinSize(fyne.NewSize(0, 200))
+	CommitsContainer.SetMinSize(fyne.NewSize(0, 210))
+
+	InstBtnUp := widget.NewButton("Ʌ", func() {})
+	InstBtnDown := widget.NewButton("V", func() {})
+
+	InstArrows := container.NewHBox(InstBtnUp, InstBtnDown)
 
 	// Create the header for the instances list.
 	InstsLabel := widget.NewLabel("Instances")
@@ -130,12 +141,13 @@ func main() {
 	InstBtnCopy := widget.NewButton("Copy", func() {})
 	InstBtnStar := widget.NewButton("Star", func() {})
 	InstBtnName := widget.NewButton("Name", func() {})
+	InstBtnDel := widget.NewButton("Del", func() {})
 
 	// Combine the button in a horizontal box layout.
-	InstButts := container.NewHBox(InstBtnStar, InstBtnCopy, InstBtnName)
+	InstButts := container.NewHBox(InstBtnStar, InstBtnCopy, InstBtnName, InstBtnDel)
 
 	// For Instances, combine the label and buttons into a 'header'.
-	InstsHead := container.NewHBox(InstsLabel, InstButts)
+	InstsHead := container.NewHBox(InstArrows, InstsLabel, InstButts)
 
 	// Make a list of all local instances. We'll eventually traverse an install dir.
 	// TODO: Also need to extend this list too. Plan for it to take a majority of the
@@ -144,13 +156,13 @@ func main() {
 		func() int { return 7 },
 		func() fyne.CanvasObject { return widget.NewLabel("") },
 		func(i widget.ListItemID, item fyne.CanvasObject) {
-			item.(*widget.Label).SetText(fmt.Sprintf("Downloaded Instance %d", i))
+			item.(*widget.Label).SetText(fmt.Sprintf("Grabbed Instance %d", i))
 		},
 	)
 	// For Instances, combine the header with the list.
 	Insts := container.NewVBox(InstsHead, InstsList)
 	InstsContainer := container.NewVScroll(Insts)
-	InstsContainer.SetMinSize(fyne.NewSize(0, 400))
+	InstsContainer.SetMinSize(fyne.NewSize(0, 420))
 
 	// Create a separator for the commits and the insts.
 	separator := widget.NewSeparator()
