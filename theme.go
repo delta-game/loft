@@ -7,7 +7,14 @@ import (
 	"fyne.io/fyne/v2/theme"
 )
 
-type CustomTheme struct{}
+type CustomTheme struct {
+	fyne.Theme // Embed the dark theme
+}
+
+// TODO: Looks like theme.DarkTheme is deprecated? Need to find modern eqv.
+func NewCustomTheme() fyne.Theme {
+	return &CustomTheme{theme.DarkTheme()}
+}
 
 func (t *CustomTheme) Color(name fyne.ThemeColorName, variant fyne.ThemeVariant) color.Color {
 	switch name {
@@ -32,5 +39,3 @@ func (t *CustomTheme) Icon(name fyne.ThemeIconName) fyne.Resource {
 func (t *CustomTheme) Size(name fyne.ThemeSizeName) float32 {
 	return theme.DefaultTheme().Size(name)
 }
-
-var appTheme = &CustomTheme{}
