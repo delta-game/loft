@@ -110,24 +110,24 @@ func main() {
 	// Combine the buttons in a horizontal box layout.
 	CommitButts := container.NewHBox(CommitBtnGrab, CommitBtnInfo)
 
-	// For Commits, combine the label and buttons into a 'header'.
+	// For Commits, create the header.
 	CommitHead := container.NewHBox(CommitBtnRefresh, CommitLabel, CommitButts, CommitFilter)
 
-	// Make a list of all available commits for gh: delta-game/delta.
-	// TODO: Need to figure out how to actually extend the list.
-	// I want it to be like around 1/4th of the sidebar.
+	// For Commits, create the list.
 	CommitList := widget.NewList(
-		func() int { return 7 },
+		func() int { return 21 },
 		func() fyne.CanvasObject { return widget.NewLabel("") },
 		func(i widget.ListItemID, item fyne.CanvasObject) {
 			item.(*widget.Label).SetText(fmt.Sprintf("Commit Hash %d", i))
 		},
 	)
+	CommitListContainer := container.NewVScroll(CommitList)
+	CommitListContainer.SetMinSize(fyne.NewSize(0, 140))
 
 	// For Commits, combine the header with the list.
-	Commits := container.NewVBox(CommitHead, CommitList)
+	Commits := container.NewVBox(CommitHead, CommitListContainer)
 	CommitsContainer := container.NewVScroll(Commits)
-	CommitsContainer.SetMinSize(fyne.NewSize(0, 210))
+	CommitsContainer.SetMinSize(fyne.NewSize(0, 0))
 
 	InstBtnUp := widget.NewButton("Ʌ", func() {})
 	InstBtnDown := widget.NewButton("V", func() {})
@@ -146,37 +146,41 @@ func main() {
 	// Combine the button in a horizontal box layout.
 	InstButts := container.NewHBox(InstBtnStar, InstBtnCopy, InstBtnName, InstBtnDel)
 
-	// For Instances, combine the label and buttons into a 'header'.
+	// For Instances, create the header.
 	InstsHead := container.NewHBox(InstArrows, InstsLabel, InstButts)
 
-	// Make a list of all local instances. We'll eventually traverse an install dir.
-	// TODO: Also need to extend this list too. Plan for it to take a majority of the
-	// free space in the sidebar.
+	// For Instances, create the list.
 	InstsList := widget.NewList(
-		func() int { return 7 },
+		func() int { return 14 },
 		func() fyne.CanvasObject { return widget.NewLabel("") },
 		func(i widget.ListItemID, item fyne.CanvasObject) {
 			item.(*widget.Label).SetText(fmt.Sprintf("Grabbed Instance %d", i))
 		},
 	)
+	InstsListContainer := container.NewVScroll(InstsList)
+	InstsListContainer.SetMinSize(fyne.NewSize(0, 380))
+
 	// For Instances, combine the header with the list.
-	Insts := container.NewVBox(InstsHead, InstsList)
+	Insts := container.NewVBox(InstsHead, InstsListContainer)
 	InstsContainer := container.NewVScroll(Insts)
-	InstsContainer.SetMinSize(fyne.NewSize(0, 420))
+	InstsContainer.SetMinSize(fyne.NewSize(0, 0))
 
 	// Create a separator for the commits and the insts.
-	separator := widget.NewSeparator()
+	Separator := widget.NewSeparator()
 
 	///////////////////////////////////////////////////////////////////////////
 	/// Presentation And Layout.
 	///////////////////////////////////////////////////////////////////////////
 
 	// Create a sidebar with the logo and some sample content.
+
+	// Combine the sidebar content with separators.
 	sidebar := container.NewVBox(
 		VersLabel,
-		CommitsContainer,
-		separator,
-		InstsContainer,
+		Commits,
+		Separator,
+		Insts,
+		Separator,
 		widget.NewButton("LAUNCH", func() {}),
 	)
 
