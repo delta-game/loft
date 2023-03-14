@@ -29,7 +29,7 @@ func main() {
 	app.Settings().SetTheme(NewCustomTheme())
 
 	// Create a new window.
-	window := app.NewWindow("Loft")
+	window := app.NewWindow("ΔLOFT")
 
 	///////////////////////////////////////////////////////////////////////////
 	/// The Main Content.
