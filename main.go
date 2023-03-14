@@ -26,6 +26,9 @@ func main() {
 	app := app.New()
 
 	// Set the app's theme to the custom theme.
+	// TODO: On Windows, it choses light versions of the elements
+	// like buttons and entry boxes. We need to specify these
+	// manually, I think in our theme.go
 	app.Settings().SetTheme(&CustomTheme{})
 
 	// Create a new window.
@@ -97,12 +100,12 @@ func main() {
 	CommitLabel := widget.NewLabel("Commits")
 
 	// Create the buttons for the commit list.
-	CommitBtnDown := widget.NewButton("Down", func() {})
-	CommitBtnInfo := widget.NewButton("Info", func() {})
+	CommitBtnStar := widget.NewButton("Star", func() {})
+	CommitBtnGrab := widget.NewButton("Grab", func() {})
 	CommitBtnDel := widget.NewButton("Del", func() {})
 
 	// Combine the buttons in a horizontal box layout.
-	CommitButts := container.NewHBox(CommitBtnDown, CommitBtnDel, CommitBtnInfo)
+	CommitButts := container.NewHBox(CommitBtnStar, CommitBtnGrab, CommitBtnDel)
 
 	// For Commits, combine the label and buttons into a 'header'.
 	CommitHead := container.NewHBox(CommitLabel, CommitButts)
@@ -128,11 +131,12 @@ func main() {
 
 	// Create the button for the instances list.
 	InstBtnCopy := widget.NewButton("Copy", func() {})
-	InstBtnStar := widget.NewButton("Star", func() {})
 	InstBtnName := widget.NewButton("Name", func() {})
+        InstBtnInfo := widget.NewButton("Info", func() {})
+
 
 	// Combine the button in a horizontal box layout.
-	InstButts := container.NewHBox(InstBtnStar, InstBtnCopy, InstBtnName)
+	InstButts := container.NewHBox(InstBtnCopy, InstBtnName, InstBtnInfo)
 
 	// For Instances, combine the label and buttons into a 'header'.
 	InstsHead := container.NewHBox(InstsLabel, InstButts)
@@ -144,7 +148,7 @@ func main() {
 		func() int { return 7 },
 		func() fyne.CanvasObject { return widget.NewLabel("") },
 		func(i widget.ListItemID, item fyne.CanvasObject) {
-			item.(*widget.Label).SetText(fmt.Sprintf("Downloaded Instance %d", i))
+			item.(*widget.Label).SetText(fmt.Sprintf("Local Instance %d", i))
 		},
 	)
 	// For Instances, combine the header with the list.
