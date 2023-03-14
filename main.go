@@ -47,11 +47,28 @@ func main() {
 	loremEntry := widget.NewMultiLineEntry()
 	loremEntry.Wrapping = fyne.TextWrapWord
 	loremEntry.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor velit vitae velit eleifend, at venenatis massa dictum. Pellentesque ut sapien magna. Nullam finibus, sem eu bibendum imperdiet, urna turpis placerat nulla, nec malesuada felis arcu ut enim. Integer malesuada massa vel ex efficitur gravida. Vivamus posuere mauris at ante rhoncus, vitae iaculis magna elementum. Nulla pulvinar mi vel urna porttitor, vel varius libero bibendum. Integer nec metus posuere, consectetur massa id, placerat ipsum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam sed elit eget lectus pharetra venenatis. In vel tempor nulla, ut viverra mauris. Sed nec congue lacus, nec tempor arcu. Sed tincidunt tortor libero, vel ultrices orci aliquam at.\n\nSuspendisse potenti. Donec convallis, quam et pulvinar fermentum, quam libero accumsan nibh, nec elementum ex quam sit amet nulla. Sed fringilla imperdiet odio, vel ultricies magna tristique in. Sed euismod libero quis libero laoreet interdum. Fusce vestibulum bibendum sem, non ullamcorper risus molestie non. Nunc id enim sit amet lectus elementum luctus. Vivamus commodo turpis eget mauris semper, nec sagittis ipsum lacinia.\n\nProin sit amet turpis vitae sapien suscipit cursus eu vel est. Praesent venenatis, nibh vel dictum semper, turpis turpis elementum libero, vel consequat arcu neque ut massa. Ut ut ante ligula. Suspendisse eleifend mi ipsum, vel commodo mi vestibulum id. Aenean ut sapien et velit suscipit dapibus vitae in purus. Integer ut felis in elit ultricies tincidunt. Curabitur luctus bibendum tellus, nec consectetur tortor ullamcorper at. Aliquam erat volutpat. Quisque volutpat ex quis eros convallis ullamcorper. Sed euismod mi ut ex venenatis, quis feugiat justo faucibus. Sed bibendum eros ac massa fermentum interdum."
+
+	// Add some checkboxes to fill in the settings page.
+	checkbox1 := widget.NewCheck("Option 1", func(checked bool) {
+	})
+
+	checkbox2 := widget.NewCheck("Option 2", func(checked bool) {
+	})
+
+	checkbox3 := widget.NewCheck("Option 3", func(checked bool) {
+	})
+
+	checkboxes := container.NewVBox(
+		checkbox1,
+		checkbox2,
+		checkbox3,
+	)
+
 	// Create the pages for the tab bar.
 	homePage := container.NewVBox(showcaseImage, loremEntry)
 	newsPage := container.NewVBox(widget.NewLabel("WIP: News And Updates will be mirrored here."), loremEntry)
 	refsPage := container.NewVBox(widget.NewLabel("WIP: The Reference Documentation will mirrored here."), loremEntry)
-	setPage := container.NewVBox(widget.NewLabel("WIP: This is where settings will be."), loremEntry)
+	setPage := container.NewVBox(widget.NewLabel("WIP: This is where settings will be."), checkboxes)
 
 	// Create the tab bar and add the pages.
 	// TODO: We want to figure out how to actually
