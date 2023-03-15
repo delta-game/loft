@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/url"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
@@ -68,11 +69,33 @@ func main() {
 		checkbox3,
 	)
 
+	// Not Happy with this naming scheme ...
+	linkURLWin, err := url.Parse("https://chocolatey.org/")
+	if err != nil {
+		panic(err)
+	}
+
+	linkChocolatey := widget.NewHyperlink("On Windows, We Need To Install Chocolatey.", linkURLWin)
+
+	linkURLMac, err := url.Parse("https://brew.sh/")
+	if err != nil {
+		panic(err)
+	}
+	linkHomebrew := widget.NewHyperlink("On MacOSX, We Need To Install Homebrew.", linkURLMac)
+
+	linkURLLinux, err := url.Parse("https://distrobox.privatedns.org/")
+	if err != nil {
+		panic(err)
+	}
+	linkDistrobox := widget.NewHyperlink("On Linux, We Need To Install Distrobox.", linkURLLinux)
+
+	labelWizard := widget.NewLabel("TODO: Have The Wizard Do The Rest!")
+
 	// Create the pages for the tab bar.
 	homePage := container.NewVBox(showcaseImage, loremEntry)
 	newsPage := container.NewVBox(widget.NewLabel("WIP: News And Updates will be mirrored here."), loremEntry)
 	refsPage := container.NewVBox(widget.NewLabel("WIP: The Reference Documentation will mirrored here."), loremEntry)
-	setPage := container.NewVBox(widget.NewLabel("WIP: This is where settings will be."), checkboxes)
+	setPage := container.NewVBox(widget.NewLabel("SETUP:"), linkChocolatey, linkHomebrew, linkDistrobox, labelWizard, widget.NewLabel("SETTINGS:"), checkboxes)
 
 	// Create the tab bar and add the pages.
 	// TODO: We want to figure out how to actually
