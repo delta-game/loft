@@ -7,7 +7,6 @@ import (
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
-	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 
 	// for embedding static resources
@@ -33,7 +32,9 @@ func main() {
 	window := app.NewWindow("ΔLOFT")
 
 	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 	/// The Main Content.
+	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
 	// Create the banner image and resize it to fit the window width.
@@ -88,11 +89,17 @@ func main() {
 	// Combine the image container and tab bar in a vertical box layout.
 	top := container.NewVBox(bannerImage, tabBar)
 
+	////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	/// The Sidebar UI.
 	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 
 	VersLabel := widget.NewLabelWithStyle("VERSION MANAGER", fyne.TextAlignCenter, fyne.TextStyle{Bold: true})
+
+	///////////////////////////////////////////////////////////////////////////
+	/// The Commits Pane.
+	///////////////////////////////////////////////////////////////////////////
 
 	refreshIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/rotate-solid.svg")
 	CommitBtnRefresh := widget.NewButtonWithIcon("", refreshIconResource, func() {
@@ -139,6 +146,10 @@ func main() {
 	CommitsContainer := container.NewVScroll(Commits)
 	CommitsContainer.SetMinSize(fyne.NewSize(0, 0))
 
+	///////////////////////////////////////////////////////////////////////////
+	/// The Instances Pane.
+	///////////////////////////////////////////////////////////////////////////
+
 	upIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/chevron-up-solid.svg")
 	InstBtnUp := widget.NewButtonWithIcon("", upIconResource, func() {
 		// ...
@@ -149,11 +160,8 @@ func main() {
 		// ...
 	})
 
-	gap := layout.NewSpacer()
+	InstArrows := container.NewHBox(InstBtnUp, InstBtnDown)
 
-	InstArrows := container.NewHBox(gap, InstBtnUp, InstBtnDown)
-
-	// Create the header for the instances list.
 	copyIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/copy-regular.svg")
 	InstBtnCopy := widget.NewButtonWithIcon("", copyIconResource, func() {
 		// ...
@@ -187,7 +195,7 @@ func main() {
 		func() int { return 14 },
 		func() fyne.CanvasObject { return widget.NewLabel("") },
 		func(i widget.ListItemID, item fyne.CanvasObject) {
-			item.(*widget.Label).SetText(fmt.Sprintf("Grabbed Instance %d", i))
+			item.(*widget.Label).SetText(fmt.Sprintf("Local Instance %d", i))
 		},
 	)
 	InstsListContainer := container.NewVScroll(InstsList)
@@ -207,7 +215,9 @@ func main() {
 	})
 
 	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 	/// Presentation And Layout.
+	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
 	// Create a sidebar with the logo and some sample content.
