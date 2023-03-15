@@ -1,0 +1,19 @@
+LOFT incorporates assets from the FontAwesome ("Free") project, 
+which are in-turn subject to the terms of their licensing system. 
+(https://fontawesome.com/v4/license/, as-of March 2023). 
+
+LOFT uses these assets in accordance with the terms of the license. 
+The complete set of FontAwesome assets used in this project can be 
+found in the `resource/fontawesome` directory in this repository.
+
+LOFT is not affiliated with the FontAwesome project or its creators, 
+and any issues related to the FontAwesome assets should be directed 
+to the appropriate parties. LOFT has made only minimal modifications 
+to the FontAwesome assets (like changing the base color).
+
+In addition to the FontAwesome assets, LOFT may use other third-party 
+assets or libraries, which are subject to their own licensing terms and 
+conditions. These assets and libraries will be clearly identified and 
+their licensing terms and conditions will be provided in this LEGAL.txt 
+file or in a separate file included with the project.
+

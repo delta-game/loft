@@ -7,6 +7,7 @@ import (
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 
 	// for embedding static resources
@@ -93,13 +94,20 @@ func main() {
 
 	VersLabel := widget.NewLabelWithStyle("VERSION MANAGER", fyne.TextAlignCenter, fyne.TextStyle{Bold: true})
 
-	// Create the label for the commit header.
-	CommitLabel := widget.NewLabelWithStyle("Commits", fyne.TextAlignCenter, fyne.TextStyle{Bold: true})
+	refreshIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/rotate-solid.svg")
+	CommitBtnRefresh := widget.NewButtonWithIcon("", refreshIconResource, func() {
+		// ...
+	})
 
-	// Create the buttons for the commit list.
-	CommitBtnRefresh := widget.NewButton("Refresh", func() {})
-	CommitBtnGrab := widget.NewButton("Grab", func() {})
-	CommitBtnInfo := widget.NewButton("Info", func() {})
+	grabIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/download-solid.svg")
+	CommitBtnGrab := widget.NewButtonWithIcon("", grabIconResource, func() {
+		// ...
+	})
+
+	infoIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/circle-question-regular.svg")
+	CommitBtnInfo := widget.NewButtonWithIcon("", infoIconResource, func() {
+		// ...
+	})
 
 	// Create the dropdown box for the commit filter.
 	CommitFilter := widget.NewSelect([]string{"All Vers", "Upstream", "Stable"}, func(selected string) {
@@ -110,8 +118,10 @@ func main() {
 	// Combine the buttons in a horizontal box layout.
 	CommitButts := container.NewHBox(CommitBtnGrab, CommitBtnInfo)
 
+	CommitLabel := widget.NewLabelWithStyle("Commits", fyne.TextAlignCenter, fyne.TextStyle{Bold: true})
+
 	// For Commits, create the header.
-	CommitHead := container.NewHBox(CommitBtnRefresh, CommitLabel, CommitButts, CommitFilter)
+	CommitHead := container.NewHBox(CommitBtnRefresh, CommitButts, CommitFilter, CommitLabel)
 
 	// For Commits, create the list.
 	CommitList := widget.NewList(
@@ -129,25 +139,48 @@ func main() {
 	CommitsContainer := container.NewVScroll(Commits)
 	CommitsContainer.SetMinSize(fyne.NewSize(0, 0))
 
-	InstBtnUp := widget.NewButton("Ʌ", func() {})
-	InstBtnDown := widget.NewButton("V", func() {})
+	upIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/chevron-up-solid.svg")
+	InstBtnUp := widget.NewButtonWithIcon("", upIconResource, func() {
+		// ...
+	})
 
-	InstArrows := container.NewHBox(InstBtnUp, InstBtnDown)
+	downIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/chevron-down-solid.svg")
+	InstBtnDown := widget.NewButtonWithIcon("", downIconResource, func() {
+		// ...
+	})
+
+	gap := layout.NewSpacer()
+
+	InstArrows := container.NewHBox(gap, InstBtnUp, InstBtnDown)
 
 	// Create the header for the instances list.
-	InstsLabel := widget.NewLabelWithStyle("Instances", fyne.TextAlignCenter, fyne.TextStyle{Bold: true})
+	copyIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/copy-regular.svg")
+	InstBtnCopy := widget.NewButtonWithIcon("", copyIconResource, func() {
+		// ...
+	})
 
-	// Create the button for the instances list.
-	InstBtnCopy := widget.NewButton("Copy", func() {})
-	InstBtnStar := widget.NewButton("Star", func() {})
-	InstBtnName := widget.NewButton("Name", func() {})
-	InstBtnDel := widget.NewButton("Del", func() {})
+	starIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/star-regular.svg")
+	InstBtnStar := widget.NewButtonWithIcon("", starIconResource, func() {
+		// ...
+	})
+
+	nameIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/pen-to-square-regular.svg")
+	InstBtnName := widget.NewButtonWithIcon("", nameIconResource, func() {
+		// ...
+	})
+
+	delIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/trash-can-regular.svg")
+	InstBtnDel := widget.NewButtonWithIcon("", delIconResource, func() {
+		// ...
+	})
 
 	// Combine the button in a horizontal box layout.
 	InstButts := container.NewHBox(InstBtnStar, InstBtnCopy, InstBtnName, InstBtnDel)
 
+	InstLabel := widget.NewLabelWithStyle("Instances", fyne.TextAlignCenter, fyne.TextStyle{Bold: true})
+
 	// For Instances, create the header.
-	InstsHead := container.NewHBox(InstArrows, InstsLabel, InstButts)
+	InstsHead := container.NewHBox(InstArrows, InstButts, InstLabel)
 
 	// For Instances, create the list.
 	InstsList := widget.NewList(
@@ -168,6 +201,11 @@ func main() {
 	// Create a separator for the commits and the insts.
 	Separator := widget.NewSeparator()
 
+	launchIconResource, _ := fyne.LoadResourceFromPath("resource/fontawesome/rocket-solid.svg")
+	BtnLaunch := widget.NewButtonWithIcon("", launchIconResource, func() {
+		// ...
+	})
+
 	///////////////////////////////////////////////////////////////////////////
 	/// Presentation And Layout.
 	///////////////////////////////////////////////////////////////////////////
@@ -181,7 +219,7 @@ func main() {
 		Separator,
 		Insts,
 		Separator,
-		widget.NewButton("LAUNCH", func() {}),
+		BtnLaunch,
 	)
 
 	// Use the border container to position the sidebar on the right side of the window.
